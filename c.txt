@@ -1,0 +1,31 @@
+version: '3'
+services:
+	nginx:
+		image: nginx:latest
+		# 端口映射
+		ports:
+			- "7443:7443"
+		# 依赖关系 先跑web
+		depends_on:
+			- "web"
+		volumes:
+		# 映射主机./conf.d目录到容器/etc/nginx/conf.d目录
+		- "$PWD/nginx:/etc/"
+		# 容器名称
+		container_name: "compose-nginx"
+		command: sh start.sh start
+
+	web:
+		depends_on:
+			- "mysql"
+		build: .
+		image: python3:planet
+		container_name: "compose-web"
+		 
+	mysql:
+        image: mysql:5.7
+        ports:
+            - "3306:3306"
+        container_name: "compose-mysql"
+
+
