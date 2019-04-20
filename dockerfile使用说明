@@ -1,21 +1,29 @@
 ## 说明
-本dockerfile以python3.5为基础镜像，由于python3.5是ubuntu的，所以使用apt-get方式来安装程序（在centos上也是如此）。
+本dockerfile以python3.6为基础镜像，由于python3.6是ubuntu的，所以使用apt-get方式来安装程序。
 ## 安装程序
 nginx
 mysql-service
-python3.5
+python3.6
+
 ## dockerfile使用方法
 1. 将dockerfile放入服务器的目录下（随便什么目录都行，自己开心就好）
 2. `docker build -t 镜像名 dockfile所在目录，当前目录可用.`
 如：dockerfile在/etc（绝对路径）目录下，你想设定他的镜像名为abc,就用以下指令
 `docker build -t abc /etc`
 请确保在当前目录没有其他dockerfile，要不然会发生什么我也不知道
+3. 确保存在dockerfile里需要add的文件
 
 ## 后续
 运行交互式容器
 `docker run -i -t 镜像名 /bin/bash`
 在后台运行一个python的web应用
-`docker run -d -P [hostport]:[containerport] 镜像名 python 要运行的文件名如app.py`
+`docker run -d -p [hostport]:[containerport] 镜像名 python 要运行的文件名如app.py`
 查看web应用程序日志
 `docker logs 容器ID或者名字`
 -f: 让 docker logs 像使用 tail -f 一样来输出容器内部的标准输出。
+
+## 开放端口
+3307:3307
+80:80
+23:23
+447:447
